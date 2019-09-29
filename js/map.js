@@ -3,11 +3,16 @@
 
 var mymap = L.map('mapid').setView([39.962131, -75.201477], 15);
 
-var basemaplayer = new L.StamenTileLayer("toner-lite", {
+var basemaplayer = new L.StamenTileLayer("watercolor", {
   // detectRetina: true
     // zoomOffset: -10
 });
     mymap.addLayer(basemaplayer);
+var labels = new L.StamenTileLayer("terrain-labels", {
+  // detectRetina: true
+    // zoomOffset: -10
+});
+    mymap.addLayer(labels);
 
 var popup = L.popup();
 
