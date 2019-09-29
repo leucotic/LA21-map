@@ -1,5 +1,5 @@
 
-// -------- Make the map -------
+// -------- Make the map --------
 
 var mymap = L.map('mapid').setView([39.962131, -75.201477], 15);
 
