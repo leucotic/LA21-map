@@ -3,7 +3,7 @@
 
 var mymap = L.map('mapid').setView([39.962131, -75.201477], 15);
 
-var basemaplayer = new L.StamenTileLayer("terrain", {
+var basemaplayer = new L.StamenTileLayer("toner", {
   // detectRetina: true
     // zoomOffset: -10
 });
@@ -114,6 +114,19 @@ function mapTheBlocks(data) {
   			color: 'navy'
 		}).addTo(blocks).bindPopup(block.name);
 	});
+   var myStyle = {
+   "color": "green",
+   // "fillColor": "#c1dd9b",
+   "fillColor": "#b7da71",
+   // "fillColor": "#596a41",
+   "weight": 5,
+   "opacity": 1,
+   "fillOpacity": 0.3
+};
+   L.geoJSON(philly, {
+      style: myStyle
+   }).addTo(mymap);
+
 }
 
 function openPopups() {
