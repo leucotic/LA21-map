@@ -23,10 +23,37 @@ function onMapClick(e) {
         .openOn(mymap);
 }
 
-mymap.on('click', onMapClick);
+// mymap.on('click', onMapClick);
 
 var blocks = L.layerGroup(), 
     businesses = L.layerGroup();
+
+// ---------------- Icons ---------------
+
+var LeafIcon = L.Icon.extend({
+  options: {
+    shadowUrl: 'https://unpkg.com/leaflet@1.4.0/dist/images/marker-shadow.png',
+    iconSize:     [38, 95],
+    shadowSize:   [50, 64],
+    iconAnchor:   [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor:  [-3, -76]
+  }
+});
+
+// var Restaurant = new LeafIcon({iconUrl: 'red.png'}),
+//   Grocery = new LeafIcon({iconUrl: 'orange.png'}),
+//   Finance = new LeafIcon({iconUrl: 'yellow.png'}),
+//   Apparel = new LeafIcon({iconUrl: 'lime.png'}),
+//   Home = new LeafIcon({iconUrl: 'green.png'}),
+//   Laundry = new LeafIcon({iconUrl: 'teal.png'}),
+//   greenIcon = new LeafIcon({iconUrl: 'turquoise.png'}),
+//   Electronics = new LeafIcon({iconUrl: 'blue.png'}),
+//   greenIcon = new LeafIcon({iconUrl: 'indigo.png'}),
+//   redIcon = new LeafIcon({iconUrl: 'violet.png'}),
+//   Community = new LeafIcon({iconUrl: 'purple.png'}),
+//   Beauty = new LeafIcon({iconUrl: 'magenta.png'}),
+//   Health = new LeafIcon({iconUrl: 'ruby.png'});
 
 
 // -------- Output LA21 Data -------
@@ -37,6 +64,7 @@ getData(csv);
 function main(data){
 	mapTheBlocks(blockdata);
 	mapTheBusinesses(data);
+  console.log(data);
 
   var x = document.getElementsByClassName("cellx"); // get column 1 cells
   for (i = 0; i < x.length; i++) {
@@ -47,7 +75,7 @@ function main(data){
   function clicky(mID, i) { // locate corresponding marker and activate popup
       x[i].onclick = function(){
         mymap._layers[mID].fire('click');
-        // mymap.setView([pmslist[i].Latitude, pmslist[i].Longitude]);
+        mymap.setView([data[i].Latitude, data[i].Longitude]);
         console.log("clicked", mID);
         // window.scrollTo(0, 0);
         // x[i].parentElement.setAttribute('class', 'show');
@@ -81,6 +109,7 @@ function mapTheBusinesses(data){
 	
 	data.forEach(business => {
 		var markerid = business.Name.replace(/[^a-zA-Z ]/g, "");
+    console.log(business.Type);
 		markers[markerid] = L.marker([business.Latitude, business.Longitude]).addTo(mymap);
 		markers[markerid]._leaflet_id = markerid;
 		businesses.addLayer(markers[markerid]);

@@ -187,8 +187,9 @@ div.location {
   overflow: hidden; }
 
 div.location.show {
-  box-shadow: 5px 5px 20px gray;
-  padding-bottom: 10px; }
+  /*box-shadow: 5px 5px 20px gray;
+  padding-bottom: 10px; */
+}
 
 .subdiv {
   display: none;
