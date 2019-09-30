@@ -102,7 +102,7 @@ function makeRow(business) {
   myTable.appendChild(div);
   div.setAttribute('class', 'location');
   var divtitle = '<h4>' + business.Name + '</h4>';
-  var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Name.replace(/ /g, '+') + business.Address.replace(/ /g, '+') + "/' target='_blank'>Directions</a>";
+  var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Name.replace(/ /g, '+') + "+" + business.Address.replace(/ /g, '+') + "/' target='_blank'>Directions</a>";
   var locateBusiness = '<a class="cellx" href="#' + business.markerid + '" ' + 'id="' + business.markerid + '_">Find on Map</a>';
   // clicky(locateBusiness, business);
   div.innerHTML = divtitle + rowAddress + gmapslink + " | " + locateBusiness;
