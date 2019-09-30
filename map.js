@@ -3,7 +3,7 @@
 
 var mymap = L.map('mapid').setView([39.962131, -75.201477], 15);
 
-var basemaplayer = new L.StamenTileLayer("toner-lite", {
+var basemaplayer = new L.StamenTileLayer("terrain", {
   // detectRetina: true
     // zoomOffset: -10
 });
