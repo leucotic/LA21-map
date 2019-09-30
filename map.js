@@ -47,9 +47,9 @@ var LeafIcon = L.Icon.extend({
     shadowUrl: 'https://unpkg.com/leaflet@1.4.0/dist/images/marker-shadow.png',
     iconSize:     [25, 41],
     shadowSize:   [50, 64],
-    iconAnchor:   [0, 40],
-    shadowAnchor: [4, 62],
-    popupAnchor:  [12, -43]
+    iconAnchor:   [15, 40],
+    shadowAnchor: [16, 62],
+    popupAnchor:  [-3, -43]
   }
 });
 
