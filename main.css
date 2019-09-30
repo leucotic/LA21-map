@@ -267,14 +267,31 @@ header {
   overflow-wrap: break-word;
   overflow: auto;
   /*margin-bottom: 100px;*/
-  /*padding-bottom: 300px;*/ }
+  /*padding-bottom: 300px;*/ 
+}
+#tablediv div {
+  padding: 10px;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+}
   #tablediv div img {
     height: 20px;
     width: auto;
     padding: 0px 10px;
     vertical-align: center; }
   #tablediv div h4 {
-    display: inline-block; }
+    display: inline-block; 
+    margin: 0;
+    font-weight: bold;
+    color: #4e1207;
+  }
+  #tablediv h2 {
+    padding-left: 10px;
+    font-family: 'Lobster', cursive;
+    color: #4e1207;
+    margin: 10px 0;
+  }
   #tablediv div span {
     font-weight: 400; }
   #tablediv div.location:nth-child(even) {
