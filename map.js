@@ -87,7 +87,7 @@ function mapTheBusinesses(data){
     business.markerid = markerid;
 		var popupName = "<b>"+ business.Name + "</b>";
 		var popupAddress = "<br>" + business.Address;
-    var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Address.replace(/ /g, '+') + "/'>Directions</a>";
+    var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Address.replace(/ /g, '+') + "/' target='_blank'>Directions</a>";
   	markers[markerid].bindPopup(popupName + popupAddress + gmapslink);
     makeRow(business);
 	});
@@ -102,7 +102,7 @@ function makeRow(business) {
   myTable.appendChild(div);
   div.setAttribute('class', 'location');
   var divtitle = '<h4>' + business.Name + '</h4>';
-  var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Address.replace(/ /g, '+') + "/'>Directions</a>";
+  var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Address.replace(/ /g, '+') + "/' target='_blank'>Directions</a>";
   var locateBusiness = '<a class="cellx" href="#' + business.markerid + '" ' + 'id="' + business.markerid + '_">Find on Map</a>';
   // clicky(locateBusiness, business);
   div.innerHTML = divtitle + rowAddress + gmapslink + " | " + locateBusiness;
