@@ -234,7 +234,7 @@ footer {
 @media only screen and (max-width: 900px) {
   .map-wrapper {
     width: 100%;
-    height: calc(45vh - 3.7em);
+    height: 45%;
     overflow: hidden; }
 
   header {
@@ -247,7 +247,7 @@ footer {
 
   #tablediv {
     width: 100%;
-    height: calc(45vh - 3.7em);
+    height: 54%;
     /*overflow: hidden;*/ }
 
   td {
