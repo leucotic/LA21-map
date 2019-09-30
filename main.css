@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Jockey+One");
 @import url("https://fonts.googleapis.com/css?family=Rajdhani:400,500,700");
 body {
-  background-color: #d8d8b2; 
+  background-color: #e0eecd; 
 }
 
 p {
@@ -119,7 +119,7 @@ div.mobile {
   /*top: 0;*/
   /*min-width: 600px;*/
   overflow-wrap: break-word;
-  overflow: auto;
+  overflow: scroll;
   /*margin-bottom: 100px;*/
   /*padding-bottom: 300px;*/ 
 }
