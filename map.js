@@ -25,35 +25,54 @@ function onMapClick(e) {
 
 // mymap.on('click', onMapClick);
 
+// Layer Groups
 var blocks = L.layerGroup(), 
-    businesses = L.layerGroup();
+    GroceryG = L.layerGroup(),
+    RestaurantG = L.layerGroup(),
+    FinanceG = L.layerGroup(),
+    ApparelG = L.layerGroup(),
+    HomeG = L.layerGroup(),
+    ArtsG = L.layerGroup(),
+    LaundryG = L.layerGroup(),
+    ElectronicsG = L.layerGroup(),
+    CommunityG = L.layerGroup(),
+    BeautyG = L.layerGroup(),
+    HealthG = L.layerGroup(),
+    MiscG = L.layerGroup();
 
 // ---------------- Icons ---------------
 
 var LeafIcon = L.Icon.extend({
   options: {
     shadowUrl: 'https://unpkg.com/leaflet@1.4.0/dist/images/marker-shadow.png',
-    iconSize:     [38, 95],
+    iconSize:     [25, 41],
     shadowSize:   [50, 64],
-    iconAnchor:   [22, 94],
+    iconAnchor:   [0, 40],
     shadowAnchor: [4, 62],
-    popupAnchor:  [-3, -76]
+    popupAnchor:  [12, -43]
   }
 });
 
-// var Restaurant = new LeafIcon({iconUrl: 'red.png'}),
-//   Grocery = new LeafIcon({iconUrl: 'orange.png'}),
-//   Finance = new LeafIcon({iconUrl: 'yellow.png'}),
-//   Apparel = new LeafIcon({iconUrl: 'lime.png'}),
-//   Home = new LeafIcon({iconUrl: 'green.png'}),
-//   Laundry = new LeafIcon({iconUrl: 'teal.png'}),
-//   greenIcon = new LeafIcon({iconUrl: 'turquoise.png'}),
-//   Electronics = new LeafIcon({iconUrl: 'blue.png'}),
-//   greenIcon = new LeafIcon({iconUrl: 'indigo.png'}),
-//   redIcon = new LeafIcon({iconUrl: 'violet.png'}),
-//   Community = new LeafIcon({iconUrl: 'purple.png'}),
-//   Beauty = new LeafIcon({iconUrl: 'magenta.png'}),
-//   Health = new LeafIcon({iconUrl: 'ruby.png'});
+var Restaurant = new LeafIcon({iconUrl: 'red.png'}),
+  Grocery = new LeafIcon({iconUrl: 'orange.png'}),
+  Finance = new LeafIcon({iconUrl: 'yellow.png'}),
+  Apparel = new LeafIcon({iconUrl: 'lime.png'}),
+  Home = new LeafIcon({iconUrl: 'green.png'}),
+  Laundry = new LeafIcon({iconUrl: 'teal.png'}),
+  greenIcon = new LeafIcon({iconUrl: 'turquoise.png'}),
+  Electronics = new LeafIcon({iconUrl: 'blue.png'}),
+  greenIcon = new LeafIcon({iconUrl: 'indigo.png'}),
+  Arts = new LeafIcon({iconUrl: 'violet.png'}),
+  Community = new LeafIcon({iconUrl: 'purple.png'}),
+  Beauty = new LeafIcon({iconUrl: 'magenta.png'}),
+  Misc = new LeafIcon({iconUrl: 'gray.png'}),
+  Health = new LeafIcon({iconUrl: 'ruby.png'});
+
+var restaurantLayer = L.layerGroup().addTo(mymap);
+var businessLayers = {
+
+};
+
 
 
 // -------- Output LA21 Data -------
@@ -64,7 +83,7 @@ getData(csv);
 function main(data){
 	mapTheBlocks(blockdata);
 	mapTheBusinesses(data);
-  console.log(data);
+  // console.log(data);
 
   var x = document.getElementsByClassName("cellx"); // get column 1 cells
   for (i = 0; i < x.length; i++) {
@@ -82,6 +101,7 @@ function main(data){
         x[i].parentElement.classList.toggle("show"); // toggling the details info display
       };
   }
+  toggleTable();
 }
 
 
@@ -103,23 +123,31 @@ function openPopups() {
     clicky(mID, i);
   };
 }
-
+var markers = {};
 function mapTheBusinesses(data){
-	var markers = {};
+	
 	
 	data.forEach(business => {
 		var markerid = business.Name.replace(/[^a-zA-Z ]/g, "");
-    console.log(business.Type);
-		markers[markerid] = L.marker([business.Latitude, business.Longitude]).addTo(mymap);
-		markers[markerid]._leaflet_id = markerid;
-		businesses.addLayer(markers[markerid]);
+      makeMarker(business, markerid);
+		
+
     business.markerid = markerid;
-		var popupName = "<b>"+ business.Name + "</b>";
+	var popupName = "<b>"+ business.Name + "</b>";
 		var popupAddress = "<br>" + business.Address;
     var gmapslink = '<br><a href=https://www.google.com/maps/place/' + business.Address.replace(/ /g, '+') + "/' target='_blank'>Directions</a>";
   	markers[markerid].bindPopup(popupName + popupAddress + gmapslink);
     makeRow(business);
 	});
+}
+
+function makeMarker(business, markerid) {
+
+   markers[markerid] = L.marker([business.Latitude, business.Longitude],{icon: eval(business.Type)}).addTo(mymap);
+      markers[markerid]._leaflet_id = markerid;
+      let currentLayer = eval(business.Type +"G")
+      currentLayer.addLayer(markers[markerid]);
+      // console.log(markerid);
 }
 
 var myTable = document.getElementById("tablediv");
@@ -140,7 +168,6 @@ function makeRow(business) {
 
 function clicky(locateBusiness, business) { // locate corresponding marker and activate popup
       locateBusiness.onclick = function(){
-        // console.log(mymap._layers[0]);
         var mID = business.id.slice(0, -1); // remove the extra underscore
         console.log(mID);
         mymap._layers[mID].fire('click');
@@ -171,16 +198,103 @@ function getData(url){
     });
 }
 
-businesses.addTo(mymap);
-// blocks.addTo(mymap);
+// businesses.addTo(mymap);
+
+    GroceryG.addTo(mymap);
+    RestaurantG.addTo(mymap);
+    FinanceG.addTo(mymap);
+    ApparelG.addTo(mymap);
+    HomeG.addTo(mymap);
+    LaundryG.addTo(mymap);
+    ElectronicsG.addTo(mymap);
+    CommunityG.addTo(mymap);
+    BeautyG.addTo(mymap);
+    HealthG.addTo(mymap);
+    MiscG.addTo(mymap);
+    ArtsG.addTo(mymap);
+
 
 var baseMaps = {
     "Map": basemaplayer
 };
 
 var overlayMaps = {
-    "Businesses": businesses,
-    "Blocks": blocks
+    "Groceries": GroceryG,
+    "Restaurants": RestaurantG,
+    "Financial Services": FinanceG,
+    "Clothing & Accessories": ApparelG,
+    "Home Goods": HomeG,
+    "Laundry": LaundryG,
+    "Auto, Electronics & Applicances": ElectronicsG,
+    "Community & Children": CommunityG,
+    "Beauty": BeautyG,
+    "Healthcare": HealthG,
+    "Arts & Entertainment": ArtsG,
+    "Miscellaneous": MiscG,
+    "Show Block Groups": blocks
 };
 
 L.control.layers(baseMaps, overlayMaps).addTo(mymap);
+
+
+
+
+// ----------- Making Categories Toggle-able ------------
+
+// var items = [];
+
+function toggletypes(type,checked) { // locate corresponding marker and activate popup
+      var items = document.getElementsByClassName(type);
+      if (checked) {
+        Array.from(items).forEach((x) => {
+          x.style.display = "block";
+        });
+      } else {
+        Array.from(items).forEach((x) => {
+          x.style.display = "none";
+        });
+      }       
+}
+
+function toggleTable(){
+
+ var businessTypes = document.querySelectorAll("input[type=checkbox]");
+// console.log(spacetypes[0].nextElementSibling.innerHTML);
+businessTypes.forEach(type => {
+   console.log(type.nextElementSibling.innerHTML);
+});
+ // for (i = 0; i < spacetypes.length; i++) {
+
+ //      if (i == 0) {
+ //        spacetypes[i].setAttribute('id', 'universitycheck');
+ //      } else if (i == 1) {
+ //        spacetypes[i].setAttribute('id', 'communitycheck');
+ //      } else if (i == 2) {
+ //        spacetypes[i].setAttribute('id', 'schoolcheck');
+ //      } else {
+ //        console.log('error2');
+ //      }
+ //  };
+
+spacetypes.forEach((box) => { box.onclick = function(){
+      switch (this.id) {
+        case 'universitycheck':
+          toggletypes('university', this.checked);
+          // console.log("university");
+          break;
+      case 'schoolcheck':
+          toggletypes('school', this.checked);
+          // console.log("school");
+          break;
+      case 'communitycheck':
+          toggletypes('community', this.checked);
+          // console.log("community");
+          break;
+      default:
+          // toggletypes('community');
+          console.log("error");
+      }
+    };
+    }
+ );
+}
