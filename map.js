@@ -3,7 +3,7 @@
 
 var mymap = L.map('mapid').setView([39.962131, -75.201477], 15);
 
-var basemaplayer = new L.StamenTileLayer("toner", {
+var basemaplayer = new L.StamenTileLayer("terrain", {
   // detectRetina: true
     // zoomOffset: -10
 });
@@ -28,7 +28,7 @@ function onMapClick(e) {
 // Layer Groups
 var blocks = L.layerGroup(), 
     GroceryG = L.layerGroup(),
-    RestaurantG = L.layerGroup(),
+    RestaurantsG = L.layerGroup(),
     FinanceG = L.layerGroup(),
     ApparelG = L.layerGroup(),
     HomeG = L.layerGroup(),
@@ -38,7 +38,7 @@ var blocks = L.layerGroup(),
     CommunityG = L.layerGroup(),
     BeautyG = L.layerGroup(),
     HealthG = L.layerGroup(),
-    MiscG = L.layerGroup();
+    MiscellaneousG = L.layerGroup();
 
 // ---------------- Icons ---------------
 
@@ -53,7 +53,7 @@ var LeafIcon = L.Icon.extend({
   }
 });
 
-var Restaurant = new LeafIcon({iconUrl: 'red.png'}),
+var Restaurants = new LeafIcon({iconUrl: 'red.png'}),
   Grocery = new LeafIcon({iconUrl: 'orange.png'}),
   Finance = new LeafIcon({iconUrl: 'yellow.png'}),
   Apparel = new LeafIcon({iconUrl: 'lime.png'}),
@@ -65,10 +65,10 @@ var Restaurant = new LeafIcon({iconUrl: 'red.png'}),
   Arts = new LeafIcon({iconUrl: 'violet.png'}),
   Community = new LeafIcon({iconUrl: 'purple.png'}),
   Beauty = new LeafIcon({iconUrl: 'magenta.png'}),
-  Misc = new LeafIcon({iconUrl: 'gray.png'}),
+  Miscellaneous = new LeafIcon({iconUrl: 'gray.png'}),
   Health = new LeafIcon({iconUrl: 'ruby.png'});
 
-var restaurantLayer = L.layerGroup().addTo(mymap);
+// var restaurantLayer = L.layerGroup().addTo(mymap);
 var businessLayers = {
 
 };
@@ -123,9 +123,9 @@ function mapTheBlocks(data) {
    "opacity": 1,
    "fillOpacity": 0.3
 };
-   L.geoJSON(philly, {
-      style: myStyle
-   }).addTo(mymap);
+   // L.geoJSON(philly, {
+   //    style: myStyle
+   // }).addTo(mymap);
 
 }
 
@@ -176,6 +176,7 @@ function makeRow(business) {
   var locateBusiness = '<a class="cellx" href="#' + business.markerid + '" ' + 'id="' + business.markerid + '_">Find on Map</a>';
   // clicky(locateBusiness, business);
   div.innerHTML = divtitle + rowAddress + gmapslink + " | " + locateBusiness;
+  div.className = business.Type;
 
 }
 
@@ -214,7 +215,7 @@ function getData(url){
 // businesses.addTo(mymap);
 
     GroceryG.addTo(mymap);
-    RestaurantG.addTo(mymap);
+    RestaurantsG.addTo(mymap);
     FinanceG.addTo(mymap);
     ApparelG.addTo(mymap);
     HomeG.addTo(mymap);
@@ -223,7 +224,7 @@ function getData(url){
     CommunityG.addTo(mymap);
     BeautyG.addTo(mymap);
     HealthG.addTo(mymap);
-    MiscG.addTo(mymap);
+    MiscellaneousG.addTo(mymap);
     ArtsG.addTo(mymap);
 
 
@@ -232,18 +233,18 @@ var baseMaps = {
 };
 
 var overlayMaps = {
-    "Groceries": GroceryG,
-    "Restaurants": RestaurantG,
-    "Financial Services": FinanceG,
-    "Clothing & Accessories": ApparelG,
+    "Grocery": GroceryG,
+    "Restaurants": RestaurantsG,
+    "Finance": FinanceG,
+    "Apparel & Accessories": ApparelG,
     "Home Goods": HomeG,
     "Laundry": LaundryG,
-    "Auto, Electronics & Applicances": ElectronicsG,
+    "Electronics, Auto & Applicances": ElectronicsG,
     "Community & Children": CommunityG,
     "Beauty": BeautyG,
-    "Healthcare": HealthG,
+    "Health": HealthG,
     "Arts & Entertainment": ArtsG,
-    "Miscellaneous": MiscG,
+    "Miscellaneous": MiscellaneousG,
     "Show Block Groups": blocks
 };
 
@@ -274,39 +275,29 @@ function toggleTable(){
  var businessTypes = document.querySelectorAll("input[type=checkbox]");
 // console.log(spacetypes[0].nextElementSibling.innerHTML);
 businessTypes.forEach(type => {
-   console.log(type.nextElementSibling.innerHTML);
+  type.id = type.nextElementSibling.innerHTML.match(/\w+\b/);
+   // console.log(type.id);
 });
- // for (i = 0; i < spacetypes.length; i++) {
 
- //      if (i == 0) {
- //        spacetypes[i].setAttribute('id', 'universitycheck');
- //      } else if (i == 1) {
- //        spacetypes[i].setAttribute('id', 'communitycheck');
- //      } else if (i == 2) {
- //        spacetypes[i].setAttribute('id', 'schoolcheck');
- //      } else {
- //        console.log('error2');
- //      }
- //  };
-
-spacetypes.forEach((box) => { box.onclick = function(){
-      switch (this.id) {
-        case 'universitycheck':
-          toggletypes('university', this.checked);
-          // console.log("university");
-          break;
-      case 'schoolcheck':
-          toggletypes('school', this.checked);
-          // console.log("school");
-          break;
-      case 'communitycheck':
-          toggletypes('community', this.checked);
-          // console.log("community");
-          break;
-      default:
-          // toggletypes('community');
-          console.log("error");
-      }
+businessTypes.forEach((box) => { box.onclick = function(){
+    toggletypes(this.id, this.checked);
+      // switch (this.id) {
+      //   case 'universitycheck':
+      //     toggletypes('university', this.checked);
+      //     // console.log("university");
+      //     break;
+      // case 'schoolcheck':
+      //     toggletypes('school', this.checked);
+      //     // console.log("school");
+      //     break;
+      // case 'communitycheck':
+      //     toggletypes('community', this.checked);
+      //     // console.log("community");
+      //     break;
+      // default:
+      //     // toggletypes('community');
+      //     console.log("error");
+      // }
     };
     }
  );

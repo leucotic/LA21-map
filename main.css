@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Jockey+One");
 @import url("https://fonts.googleapis.com/css?family=Rajdhani:400,500,700");
 body {
-  background-color: #fbe3b2; 
+  background-color: #dbecb8; 
 }
 
 p {
@@ -128,6 +128,7 @@ div.mobile {
   font-family: 'Ubuntu', sans-serif;
   font-weight: 300;
   font-size: 1em;
+  border-top: 3px gray solid;
 }
   #tablediv div img {
     height: 20px;
@@ -149,7 +150,8 @@ div.mobile {
   #tablediv div span {
     font-weight: 400; }
   #tablediv div.location:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.07); }
+    /*background-color: rgba(0, 0, 0, 0.07); */
+  }
   #tablediv tr:nth-of-type(2) img {
     -webkit-animation: blink 1s;
     animation: blink 1s;
